@@ -73,7 +73,7 @@ app.add_url_rule('/<path:name>', 'views.bin', methods=['GET', 'POST', 'DELETE', 
 
 app.add_url_rule('/docs/<name>', 'views.docs')
 app.add_url_rule('/api/v1/bins', 'api.bins', methods=['POST'])
-app.add_url_rule('/api/v1/bins_name', 'api.bins.name', methods=['POST'])
+app.add_url_rule('/api/v1/bins_name', 'api.binsname', methods=['POST'])
 app.add_url_rule('/api/v1/bins/<name>', 'api.bin', methods=['GET'])
 app.add_url_rule('/api/v1/bins/<bin>/requests', 'api.requests', methods=['GET'])
 app.add_url_rule('/api/v1/bins/<bin>/requests/<name>', 'api.request', methods=['GET'])
