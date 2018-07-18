@@ -27,7 +27,7 @@ def bins():
 @app.endpoint('api.binsname')
 def bins_name():
     private = request.form.get('private') in ['true', 'on']
-    name = request.form.get('name')
+    name = request.form.get('merchant')
     bin = db.create_bin_with_name(private, name)
     if bin.private:
         session[bin.name] = bin.secret_key
