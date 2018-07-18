@@ -20,8 +20,6 @@ class Bin(object):
         self.created = time.time()
         self.private = private
         self.color = random_color()
-        '''self.name = self.name if self.name else tinyid(8)
-        '''
         self.favicon_uri = solid16x16gif_datauri(*self.color)
         self.requests = []
         self.secret_key = os.urandom(24) if self.private else None
