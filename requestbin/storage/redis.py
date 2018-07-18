@@ -28,6 +28,14 @@ class RedisStorage():
         self.redis.set(key, bin.dump())
         self.redis.expireat(key, int(bin.created+self.bin_ttl))
         return bin
+    
+    def create_bin_with_name(self, private=False, name = ''):
+        bin = Bin(private)
+        bin.name = name
+        key = self._key(bin.name)
+        self.redis.set(key, bin.dump())
+        self.redis.expireat(key, int(bin.created+self.bin_ttl))
+        return bin
 
     def create_request(self, bin, request):
         bin.add(request)
