@@ -24,6 +24,16 @@ def bins():
         session[bin.name] = bin.secret_key
     return _response(bin.to_dict())
 
+@app.endpoint('api.bins_name')
+def bins_name():
+    private = request.form.get('private') in ['true', 'on']
+    name = request.form.get('name')
+    bin = db.create_bin(private)
+    bin = name
+    if bin.private:
+        session[bin.name] = bin.secret_key
+    return _response(bin.to_dict())    
+
 
 @app.endpoint('api.bin')
 def bin(name):
