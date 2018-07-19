@@ -40,7 +40,7 @@ def bin(name):
         bin = db.lookup_bin(name)
     except KeyError:
         if regexMerchant.match(name):
-            bin = db.create_bin_with_name("false",name)
+            bin = db.create_bin_with_name("",name)
         else:
             return "Not found\n", 404
     if request.query_string == 'inspect':
