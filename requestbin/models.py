@@ -62,17 +62,6 @@ class Bin(object):
             for _ in xrange(self.max_requests, len(self.requests)):
                 self.requests.pop(self.max_requests)
 
-    def get_raw(self):
-        if self.raw:
-            try:
-                if self.content_type == 'application/json' and self.content_length < __MAX_JSON_TO_PRETTYPARSE_IN_BYTES:
-                    return json.dumps(json.loads(self.raw), indent=4)
-            except Exception as e:
-                logging.exception("Error parsing json to show: %s" % e)
-
-            return self.raw
-
-        return None
 
 
 class Request(object):
@@ -125,6 +114,17 @@ class Request(object):
             content_length=self.content_length,
             content_type=self.content_type,
         )
+    def get_raw(self):
+        if self.raw:
+            try:
+                if self.content_type == 'application/json' and self.content_length < __MAX_JSON_TO_PRETTYPARSE_IN_BYTES:
+                    return json.dumps(json.loads(self.raw), indent=4)
+            except Exception as e:
+                logging.exception("Error parsing json to show: %s" % e)
+
+            return self.raw
+
+        return None
 
     @property
     def created(self):
