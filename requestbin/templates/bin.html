@@ -183,6 +183,7 @@ public class RequestBinTutorial {
 
     <h5>RAW BODY</h5>
     <div class="request-body" data-id="{{ request.id }}">
+        {{request.content_length}}
         <pre class="body prettyprint">{{ request.get_raw() or "<em>None</em>" }}</pre>
   </div>
 </div>
