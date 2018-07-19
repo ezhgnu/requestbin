@@ -52,7 +52,7 @@ def bin(name):
             base_url=request.scheme+'://'+request.host)
     else:
         db.create_request(bin, request)
-        resp = make_response("ok\n")
+        resp = make_response("okeys\n")
         resp.headers['Sponsored-By'] = "https://www.runscope.com"
         return resp
 
