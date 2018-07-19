@@ -42,8 +42,8 @@ def bin(name):
     except KeyError:
         if regexMerchant.match(name):
             bin = db.create_bin_with_name("false",name)
-        else:
-            return "Not found\n", 404
+            else:
+                return "Not found\n", 404
     finally:
         if request.query_string == 'inspect':
             if bin.private and session.get(bin.name) != bin.secret_key:
