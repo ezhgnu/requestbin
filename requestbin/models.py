@@ -117,7 +117,7 @@ class Request(object):
     def get_raw(self):
         if self.raw:
             try:
-                if self.content_type == 'application/json; charset=UTF-8':
+                if self.content_type == 'application/json; charset=UTF-8' and self.content_length < __MAX_JSON_TO_PRETTYPARSE_IN_BYTES:
                     return json.dumps(json.loads(self.raw), indent=4)
             except Exception as e:
                 logging.exception("Error parsing json to show: %s" % e)
