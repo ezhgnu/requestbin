@@ -15,7 +15,7 @@ from .util import solid16x16gif_datauri
 
 from requestbin import config
 
-__MAX_JSON_TO_PRETTYPARSE_IN_BYTES = 1000*1024
+__MAX_JSON_TO_PRETTYPARSE_IN_BYTES = 2000*1024
 
 class Bin(object):
     max_requests = config.MAX_REQUESTS
