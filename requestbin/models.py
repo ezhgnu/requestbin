@@ -7,11 +7,15 @@ import re
 
 import msgpack
 
+import logging
+
 from .util import random_color
 from .util import tinyid
 from .util import solid16x16gif_datauri
 
 from requestbin import config
+
+__MAX_JSON_TO_PRETTYPARSE_IN_BYTES = 300*1024
 
 class Bin(object):
     max_requests = config.MAX_REQUESTS
@@ -57,6 +61,18 @@ class Bin(object):
         if len(self.requests) > self.max_requests:
             for _ in xrange(self.max_requests, len(self.requests)):
                 self.requests.pop(self.max_requests)
+
+    def get_raw(self):
+        if self.raw:
+            try:
+                if self.content_type == 'application/json' and self.content_length < __MAX_JSON_TO_PRETTYPARSE_IN_BYTES:
+                    return json.dumps(json.loads(self.raw), indent=4)
+            except Exception as e:
+                logging.exception("Error parsing json to show: %s" % e)
+
+            return self.raw
+
+        return None
 
 
 class Request(object):
