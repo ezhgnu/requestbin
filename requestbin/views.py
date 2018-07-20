@@ -56,6 +56,29 @@ def bin(name):
         resp.headers['Sponsored-By'] = "https://www.runscope.com"
         return resp
 
+@app.endpoint('views.bin.redirect')
+def bin_redirect(name, redirect_to):
+    regexMerchant = re.compile(r'^m([a-zA-Z0-9]{19})')
+
+    try:
+        bin = db.lookup_bin(name)
+    except KeyError:
+        if regexMerchant.match(name):
+            bin = db.create_bin_with_name("",name)
+        else:
+            return "Not found\n", 404
+    if request.query_string == 'inspect':
+        if bin.private and session.get(bin.name) != bin.secret_key:
+            return "Private bin\n", 403
+        update_recent_bins(name)
+        return render_template('bin.html',
+            bin=bin,
+            base_url=request.scheme+'://'+request.host)
+    else:
+        db.create_request(bin, request)
+        resp = make_response("ok\n")
+        resp.headers['Sponsored-By'] = "https://www.runscope.com"
+        return redirect(redirect_to, code=302, Response=None)
 
 @app.endpoint('views.docs')
 def docs(name):
